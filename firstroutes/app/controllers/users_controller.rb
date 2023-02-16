@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     def destroy
         user = User.find(params[:id])
         if user.destroy
-            render json: "User Destroyed!"
+            render json: user 
         else
             render json: user.error.full_message, status: 422
         end
