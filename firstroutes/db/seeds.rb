@@ -35,4 +35,8 @@ ApplicationRecord.transaction do
     ArtworkShare.create(artwork_id: artwork4.id, viewer_id: viewer2.id)
 
 
+    firstcomment = Comment.create(body: "heyyyyy testing our cool website mark zuckerburg",artwork_id: artwork1.id, author_id: viewer1.id)
+    secondcomment = Comment.create(body: "im the second comment ",artwork_id: artwork1.id, author_id: viewer2.id)
+
+
 end
