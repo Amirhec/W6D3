@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     end
 
     def show
+        # debugger
         user = User.find(params[:id])
         render json: user
     end
@@ -43,7 +44,7 @@ class UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(:name,:email)
+        params.require(:user).permit(:username)
     end
 end
 
