@@ -17,10 +17,13 @@ class Artwork < ApplicationRecord
         primary_key: :id,
         foreign_key: :artist_id 
 
+    has_many(
+        :shares,
+        class_name: :ArtworkShare,
+        primary_key: :id,
+        foreign_key: :artwork_id
+    )
     
-
+    has_many :shared_viewers, through: :shares, source: :viewer
     
-  
-
-
 end
