@@ -1,16 +1,17 @@
 class ArtworksController < ApplicationController 
     def index
-        render json: Artwork.all
+        @artworks = Artwork.artworks_for_user_id(params[:user_id])
+        render json: @artworks
     end
 
     def create
-        artwork = Artwork.new(artwork_params)
+        @artwork = Artwork.new(artwork_params)
         # replace the `artwork_attributes_here` with the actual attribute keys
 
-        if artwork.save
-            render json: artwork
+        if @artwork.save
+            render json: @artwork
         else
-            render json: artwork.errors.full_messages, status: 422
+            render json: @artwork.errors.full_messages, status: 422
         end
     end
 

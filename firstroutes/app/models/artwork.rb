@@ -11,6 +11,7 @@
 #
 class Artwork < ApplicationRecord
     validates :title , :image_url, :artist_id, presence: true 
+    validates :title, uniqueness: {scope: :artist_id}
 
     belongs_to :artist,
         class_name: :User,
@@ -26,5 +27,12 @@ class Artwork < ApplicationRecord
     )
     
     has_many :shared_viewers, through: :shares, source: :viewer
+
+    def self.artworks_for_user_id(user_id)
+        User
+            .joins(:shared_artworks)
+            .select('DISTINCT artworks.id, artworks.title')
+            .where("users.id = ? OR artworks.artist_id = ?", user_id, user_id)
+    end
     
 end
