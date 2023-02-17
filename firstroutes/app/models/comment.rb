@@ -13,7 +13,7 @@ class Comment < ApplicationRecord
         class_name: :Artwork,
         inverse_of: :comments 
 
-    has_many :likes, as :likeable
+    has_many :likes, as: :likeable
 
     def self.get_comment_from_user_id(user_id)
         Comment

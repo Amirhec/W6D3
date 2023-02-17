@@ -1,10 +1,11 @@
 class CreateLikes < ActiveRecord::Migration[7.0]
   def change
     create_table :likes do |t|
-      t.references :liker, null: false, foreign_key: true
+      t.bigint :liker, null: false
       t.references :likeable, polymorphic: true, null: false
 
       t.timestamps
     end
+    # add_foreign_key :likes, :liker
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_16_200012) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_16_220054) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_16_200012) do
     t.bigint "viewer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "favorite", default: false, null: false
     t.index ["artwork_id", "viewer_id"], name: "index_artwork_shares_on_artwork_id_and_viewer_id", unique: true
     t.index ["artwork_id"], name: "index_artwork_shares_on_artwork_id"
     t.index ["viewer_id"], name: "index_artwork_shares_on_viewer_id"
@@ -30,6 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_16_200012) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "artist_id", null: false
+    t.boolean "artist_favorite", default: false, null: false
     t.index ["image_url"], name: "index_artworks_on_image_url", unique: true
     t.index ["title", "artist_id"], name: "index_artworks_on_title_and_artist_id", unique: true
   end
@@ -44,6 +46,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_16_200012) do
     t.index ["author_id"], name: "index_comments_on_author_id"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.bigint "liker_id", null: false
+    t.string "likeable_type", null: false
+    t.bigint "likeable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
     t.datetime "created_at", null: false
@@ -54,4 +65,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_16_200012) do
   add_foreign_key "artwork_shares", "users", column: "viewer_id"
   add_foreign_key "comments", "artworks"
   add_foreign_key "comments", "users", column: "author_id"
+  add_foreign_key "likes", "users", column: "liker_id"
 end

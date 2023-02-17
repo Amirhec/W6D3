@@ -23,6 +23,6 @@ class ArtworkSharesController < ApplicationController
     private
 
     def artwork_share_params
-        params.require(:artwork_share).permit(:viewer_id, :artwork_id)
+        params.require(:artwork_share).permit(:viewer_id, :artwork_id, :favorite)
     end
 end
